@@ -5,7 +5,6 @@ function App() {
 
   return (
     <div>
-      <div>Salut man</div>
       <SimpleMap />
     </div>
   )
