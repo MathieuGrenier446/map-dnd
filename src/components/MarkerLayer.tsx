@@ -94,6 +94,7 @@ export default function MarkerLayer() {
 
             {pendingMarker && (
                 <Marker ref={(ref) => { pendingMarkerRef.current = ref }} position={[pendingMarker.position.x, pendingMarker.position.y]}>
+                    
                     <Popup ref={(ref) => { popupRef.current = ref }}>
                         <div className="flex flex-col gap-2">
                             <textarea
