@@ -18,9 +18,7 @@ export default function ImageModal({imgSrc, setShowModal}:{imgSrc: string, setSh
                 <img 
                     src={imgSrc} 
                     alt="Preview" 
-                    className="max-w-xs max-h-64 object-contain outline-3 hover:outline-green-300 rounded active:outline-green-300"
-                    height={256}
-                    width={256}
+                    className="w-full h-auto max-w-[512px] max-h-[512px] object-contain outline-3 hover:outline-green-300 rounded active:outline-green-300"
                 />
             </div>
             
