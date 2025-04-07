@@ -1,9 +1,10 @@
 import { CRS } from 'leaflet';
 import 'leaflet/dist/leaflet.css'
 import { MapContainer} from "react-leaflet";
-import LoggingLayer from './LoggingLayer';
-import MarkerLayer from './MarkerLayer';
+import LoggingLayer from './layers/LoggingLayer';
+import MarkerLayer from './layers/MarkerLayer';
 import L from 'leaflet';
+import { MarkersProvider } from '../hooks/MarkersProvider';
 
 
 export default function SimpleMap() {
@@ -11,6 +12,7 @@ export default function SimpleMap() {
   L.Icon.Default.imagePath='leaflet-images/'
 
   return (
+    <MarkersProvider>
       <MapContainer 
           style={{ width: "100%", height: "100vh" }} 
           center={[-130, 130]} 
@@ -21,5 +23,6 @@ export default function SimpleMap() {
           <LoggingLayer/>
           <MarkerLayer/>
       </MapContainer>
+    </MarkersProvider>
     );
   };
