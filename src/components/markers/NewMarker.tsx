@@ -1,28 +1,40 @@
 import { useEffect, useRef } from "react";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
 import { useMarkers } from "../../hooks/useMarkers";
 import ImageUpload from "../utils/ImageUpload";
+import { CenterPopupWrapper } from "./CenterPopupWrapper";
 
 export default function NewMarker() {
     
-    const pendingMarkerRef = useRef<L.Marker | null>(null);
+    const markerRef = useRef<L.Marker | null>(null);
     const popupRef = useRef<L.Popup | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const {setNewMarker, isUploadingNewMarker, newMarker, uploadNewMarker, setIsAddMarkerMode} = useMarkers()
+    const map = useMap()
+
+    
+    useEffect(()=>{
+        if(!newMarker) return
+        setTimeout(() => {
+            map.setView([newMarker.position.x, newMarker.position.y], map.getZoom());
+        }, 0);
+        
+    }, [popupRef, map, newMarker])
 
     useEffect(() => {
-        if (popupRef.current && pendingMarkerRef.current) {
+        if (popupRef.current && markerRef.current && newMarker) {
             setTimeout(() => {
-                pendingMarkerRef.current?.openPopup();
+                markerRef.current?.openPopup();
                 textareaRef.current?.focus();
             }, 0);
         }
-    }, [newMarker]);
+    }, [newMarker, map]);
 
     if (newMarker === null) return <></>
     
     return (
-        <Marker ref={(ref) => { pendingMarkerRef.current = ref }} position={[newMarker.position.x, newMarker.position.y]}>   
+        <CenterPopupWrapper marker={newMarker} markerRef={markerRef} popupRef={popupRef}>
+        <Marker ref={(ref) => { markerRef.current = ref }} position={[newMarker.position.x, newMarker.position.y]}>   
             <Popup ref={(ref) => { popupRef.current = ref }}>
                 <div className="flex flex-col z-50 items-center">
                     <p className="italic underline">New marker!</p>
@@ -61,5 +73,6 @@ export default function NewMarker() {
                 </div>
             </Popup>
         </Marker>
+        </CenterPopupWrapper>
     )
 }

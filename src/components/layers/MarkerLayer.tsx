@@ -45,10 +45,9 @@ export default function MarkerLayer() {
             {isAddMarkerMode && <NewMarkerToolTip/>}
             {newMarker && <NewMarker/>}
 
-            {markers.map((marker, index)=>(
-              <CustomMarker key={index} marker={marker}/>
+            {markers.map((marker)=>(
+              <CustomMarker key={marker.id} marker={marker}/>
             ))}
-
         </div>
     )
 }

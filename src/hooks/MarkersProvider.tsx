@@ -4,13 +4,12 @@ import { IMarker, IMarkerForm } from "../lib/database/interfaces";
 import { addDocument, subscribeToCollection } from "../lib/database/controllers";
 import { MARKERS_DB_TABLE } from "../lib/database/tables";
 
-
 export const MarkersProvider = ({ children }: {children: React.ReactNode}) => {
     const [markers, setMarkers] = useState<IMarker[]>([])
     const [newMarker, _setNewMarker] = useState<IMarkerForm|null>(null)
     const [isAddMarkerMode, setIsAddMarkerMode] = useState<boolean>(false)
     const [isUploadingNewMarker, setIsUploadingNewMarker] = useState<boolean>(false)
-    
+
     useEffect(()=>{
         const unsubscribe = subscribeToCollection(MARKERS_DB_TABLE, (data)=>{
             setMarkers(data as IMarker[])

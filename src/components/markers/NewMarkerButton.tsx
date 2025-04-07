@@ -3,7 +3,7 @@ import { useMarkers } from "../../hooks/useMarkers"
 import L from "leaflet";
 
 export default function NewMarkerButton() {
-    const {isAddMarkerMode, setIsAddMarkerMode} = useMarkers()
+    const {isAddMarkerMode, setIsAddMarkerMode, setNewMarker} = useMarkers()
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
@@ -24,6 +24,8 @@ export default function NewMarkerButton() {
                 onClick={(e)=>{
                     e.stopPropagation()
                     setIsAddMarkerMode(prev=>!prev)
+                    if (isAddMarkerMode) setNewMarker(null)
+                        
                 }}
                 className="text-xl absolute z-1000 top-2 right-2 text-nowrap w-40"
                 style={{
