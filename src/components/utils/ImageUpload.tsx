@@ -42,6 +42,7 @@ export default function ImageUpload() {
     fileReader.readAsDataURL(file);
     
     setSelectedImage(file);
+    console.log(selectedImage?.name)
   };
   
   const resetFileInput = (): void => {
